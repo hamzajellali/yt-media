@@ -58,7 +58,14 @@ inp.dispatchEvent(new Event('change', {bubbles:true}));
 6. Click `ytcp-uploads-dialog #next-button` 3 times (2.5 s apart). If the Checks step reports a copyright
    or other issue, stop, leave it private, report.
 7. Click `tp-yt-paper-radio-button[name="PUBLIC"]` (verify aria-checked=true), then `#done-button`.
-   Read the "Video published" dialog text for the link.
+   If a "Video uploading" dialog appears, DO NOT navigate away: poll every ~20 s (javascript_exec with a
+   short setTimeout, each call under 40 s) until the upload finishes, then read the link from the
+   content page (`/videos/upload` list, first row) or the "Video published" dialog.
+   Big files: the fetch() of a long MP4 can take >45 s and time out the tool call; that is fine — wait
+   30 s and check `document.querySelector('ytcp-uploads-dialog')` before retrying (never upload twice).
+   Thumbnail input for long videos: `ytcp-uploads-dialog ytcp-thumbnail-uploader input[type=file]`.
+   Long videos are encoded at crf 25 so files stay under GitHub's 100 MB limit; if a file is still
+   over 95 MB, re-encode with `ffmpeg -i v.mp4 -c:v libx264 -crf 28 -preset veryfast -c:a copy v2.mp4`.
 
 ## 4. Record and clean up
 - Empty gc-drop (git rm the files, commit, push).

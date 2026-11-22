@@ -555,7 +555,7 @@ def write_wav(path, x):
 
 # ------------------------------------------------------------------ render
 class Renderer:
-    def __init__(self, W, H, fps, out_path, wav_path):
+    def __init__(self, W, H, fps, out_path, wav_path, crf=20):
         self.W, self.H, self.fps = W, H, fps
         self.surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, W, H)
         self.ctx = cairo.Context(self.surf)
@@ -563,7 +563,7 @@ class Renderer:
         self.out_path, self.wav_path = out_path, wav_path
         self.ff = subprocess.Popen(
             ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "bgra", "-s", f"{W}x{H}",
-             "-r", str(fps), "-i", "-", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+             "-r", str(fps), "-i", "-", "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf),
              "-pix_fmt", "yuv420p", "/tmp/gc_video_only.mp4"], stdin=subprocess.PIPE)
         self.frames = 0
 
@@ -665,7 +665,7 @@ def make_short(seed, out, meta_path, kind=None):
 def make_long(seed, out, meta_path, minutes=8.0):
     rnd = random.Random(seed)
     W, H, fps = 1920, 1080, 30
-    r = Renderer(W, H, fps, out, "/tmp/gc_audio.wav")
+    r = Renderer(W, H, fps, out, "/tmp/gc_audio.wav", crf=25)
     events, chapters = [], []
     target = minutes * 60
     order = []
