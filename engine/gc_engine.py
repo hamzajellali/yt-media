@@ -335,7 +335,7 @@ class Escape(Sim):
             draw_ball(ctx, self.b["x"], self.b["y"], self.b["r"], (1, 0.95, 0.4))
 
     def counter(self):
-        return len(self.rings), "rings left"
+        return len(self.rings), ("ring left" if len(self.rings) == 1 else "rings left")
 
     def done(self, t):
         if self.finished_at is None and t > self.max_time:
@@ -680,11 +680,11 @@ def make_long(seed, out, meta_path, minutes=8.0):
             j = next((k for k in range(i + 1, len(order)) if order[k] != order[i]), None)
             if j: order[i], order[j] = order[j], order[i]
     # estimate scene count from average ~32s
-    n_scenes = max(8, int(target / 32))
+    n_scenes = 0
     t = title_card(r, [("THE MOST SATISFYING PHYSICS SIMULATIONS", 64, (1, 1, 1)), ("turn the sound on", 34, (1, 0.84, 0.35))], 3.0, events, 0)
     chapters.append((0, "Intro"))
     snaps = []
-    for i in range(n_scenes):
+    for i in range(len(order)):
         kind = order[i]
         sim = KINDS[kind](rnd, W, H, W / 2, 575, 410)
         sim.min_time = 18
@@ -692,8 +692,8 @@ def make_long(seed, out, meta_path, minutes=8.0):
         d, snap = run_sim(r, sim, t, events, "long", scene_label=f"#{i + 1}")
         t += d
         snaps.append((kind, snap))
-        if t > target + 20:
-            n_scenes = i + 1
+        n_scenes = i + 1
+        if t >= target:
             break
     title_text = f"{n_scenes} Most Satisfying Physics Simulations"
     write_wav("/tmp/gc_audio.wav", synth(events, r.frames / fps))
