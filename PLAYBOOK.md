@@ -40,6 +40,10 @@ Check: `curl -s -o /dev/null -w "%{http_code}" https://raw.githubusercontent.com
 ## 3. Upload through the Claude desktop app's built-in browser
 Tools `mcp__remote-devices__Claude_Browser__*` (load the built-in-browser skill first). The browser is already
 signed in to the channel. Never type passwords; if signed out, stop and report.
+IMPORTANT: the browser holds several Google accounts; Gravity Candy is under **authuser=3** (checked 2026-11-22).
+Add `?authuser=3` (or `&authuser=3`) to EVERY studio.youtube.com URL. If a page says "you don't have permission"
+(HTTP 403), find the right index with javascript: fetch `https://studio.youtube.com/channel/UC6jSQGEwcejJGjanTUUb-rw?authuser=N`
+for N=0..5 and use the one that returns 200; note the new index in your report.
 1. `preview_start` https://studio.youtube.com/channel/UC6jSQGEwcejJGjanTUUb-rw/videos/upload?d=ud
 2. javascript_exec (wait ~3 s first):
 ```js
