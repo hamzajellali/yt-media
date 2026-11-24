@@ -21,10 +21,12 @@ Commit as: `git -c user.name="Claude" -c user.email="noreply@anthropic.com" comm
 Push with `git -c push.negotiate=true push origin <branch>`.
 
 ## 1. Choose the video with vidIQ, then make it
-The user wants vidIQ (tools `mcp__vidIQ__*`, load with ToolSearch) to decide what to make while its free credits last.
+The user wants vidIQ (tools `mcp__vidIQ__*`, load with ToolSearch) to decide what to make while its free credits last
+(asked by the user in a live session on 2026-11-24; this replaces "least recently used kind", which is now only the
+fallback when the queue below is empty).
 Read `VIDIQ.md` (research so far) and `vidiq_plan.json` (ordered queue) first.
-a. `vidiq_balance` (free). If totalCredits >= 5, do research before choosing, 5 credits per call, until credits are
-   used up or nothing useful is left to ask (never pay for credits, never upgrade the plan):
+a. `vidiq_balance` (free). If totalCredits >= 5, do research before choosing, 5 credits per call, at most 4 paid calls
+   (20 credits) per run so the monthly free credits last across runs (never pay for credits, never upgrade the plan):
    - `vidiq_user_channels` (free): if Gravity Candy (UC6jSQGEwcejJGjanTUUb-rw) is connected, first spend 5 on
      `vidiq_channel_analytics` (channelId UC6jSQGEwcejJGjanTUUb-rw, report top_videos, filters creatorContentType==shorts,
      metrics views,engagedViews,averageViewPercentage,subscribersGained) to see which of our Shorts work best.
