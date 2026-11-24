@@ -39,3 +39,26 @@ The ordered list is in `vidiq_plan.json`.
 
 Ideas that need new engine kinds (not built yet): break-through rings with hit points; every ball splits in two
 up to 2048; fill a shape; "1 ball vs N balls" battle.
+
+## 2026-11-24 (evening): Gravity Candy connected to vidIQ (25 credits)
+
+vidIQ connector now signed in as pondokarfouli456@gmail.com, which has Gravity Candy (UC6jSQGEwcejJGjanTUUb-rw)
+connected. Free plan: 150 credits/month, renews 24 Dec. (The old account jellali.hamzaa@gmail.com only had "upfreelance".)
+
+- `vidiq_youtube_channel_audit` (10 credits): YouTube Analytics had not reported 20–23 Nov yet, so private analytics
+  (retention, traffic sources) are empty for our new Shorts. `vidiq_channel_analytics` for 20–24 Nov returned no rows
+  (10 credits). Until Analytics catches up (2–3 days lag), use `vidiq_channel_videos` (public counts) instead.
+- `vidiq_channel_videos` Shorts (5 credits), counts at ~19:10 UTC 24 Nov:
+
+| Short | kind | views | likes | VPH (lifetime) |
+| --- | --- | --- | --- | --- |
+| hpKDHRWzvdo Every Bounce = Bigger Ball... Jingle Bells | grow + song | 9,486 | 49 | 190 |
+| __jbfrSxFFs Every Bounce Adds a Ball... 300? | multiply | 3,230 | 20 | 66 |
+| XxkVlSLgFVA Can One Ball Escape 10 Spinning Rings? | escape | 1,278 | 23 | 64 |
+| tZOVAkL261c Every Bounce Draws a Line (Merry Christmas) | lines + song | 1,152 | 4 | 58 |
+| DzAQHiiFgGs Which Color Escapes First? | race | 1,112 (in ~9 h) | 5 | 139 |
+| XFSuuFAYvFE Every Bounce Makes It 5% Faster | speed | 76 (in 40 min) | 2 | — |
+
+Reading: grow + Christmas song is clearly our best format; race took off fastest after it; escape has the best like
+rate; lines with the song name in the title was the weakest. Queue reordered accordingly (grow-guess, race, multiply,
+grow-guess, escape, lines-guess, speed, ...).

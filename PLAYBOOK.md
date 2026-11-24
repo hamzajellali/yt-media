@@ -27,9 +27,11 @@ fallback when the queue below is empty).
 Read `VIDIQ.md` (research so far) and `vidiq_plan.json` (ordered queue) first.
 a. `vidiq_balance` (free). If totalCredits >= 5, do research before choosing, 5 credits per call, at most 4 paid calls
    (20 credits) per run so the monthly free credits last across runs (never pay for credits, never upgrade the plan):
-   - `vidiq_user_channels` (free): if Gravity Candy (UC6jSQGEwcejJGjanTUUb-rw) is connected, first spend 5 on
-     `vidiq_channel_analytics` (channelId UC6jSQGEwcejJGjanTUUb-rw, report top_videos, filters creatorContentType==shorts,
-     metrics views,engagedViews,averageViewPercentage,subscribersGained) to see which of our Shorts work best.
+   - `vidiq_user_channels` (free) must list Gravity Candy (UC6jSQGEwcejJGjanTUUb-rw); the vidIQ account is
+     pondokarfouli456@gmail.com (free plan, 150 credits/month, renews on the 24th). First spend 5 on
+     `vidiq_channel_videos` (channelId UC6jSQGEwcejJGjanTUUb-rw, videoFormat short) to see views/likes/VPH of each of
+     our Shorts by kind. `vidiq_channel_analytics` (retention, traffic) only once YouTube Analytics has data for the
+     dates asked (it lags 2–3 days; an empty result still costs 5).
    - `vidiq_outliers` (contentType short) / `vidiq_trending_videos` (videoFormat short, sortBy recentVph) on our niche
      or on the concept at the top of the queue; `vidiq_score_title` to compare 2 title options.
    Write the findings (dated, with numbers as vidIQ returned them) into `VIDIQ.md` and reorder/extend the queue.
