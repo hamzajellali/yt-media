@@ -1,0 +1,20 @@
+{
+  "updated": "2026-11-24",
+  "source": "vidIQ research 2026-11-24, see VIDIQ.md",
+  "note": "Daily run takes the first entry of queue, renders it, then moves it to done with the date and video link. Song kinds only: grow, lines. guess=true adds --guess.",
+  "queue": [
+    {"kind": "grow", "song": "Deck the Halls", "guess": true, "why": "guess-the-song format (829K/452K/410K outliers), title score 98 vs 91; our best Short is grow + Jingle Bells"},
+    {"kind": "multiply", "why": "every bounce multiplies: 933K outlier; our 2nd best Short"},
+    {"kind": "lines", "song": "Jingle Bells", "guess": true, "why": "1 ball vs 1,000,000 lines 714K + guess-the-song"},
+    {"kind": "speed", "why": "every bounce 5% faster: 4.1M outlier"},
+    {"kind": "grow", "song": "We Wish You a Merry Christmas", "guess": true, "why": "guess the Christmas song"},
+    {"kind": "escape", "why": "This Ball Will Never Escape 181K; ring-escape outliers"},
+    {"kind": "lines", "song": "Deck the Halls", "guess": true, "why": "guess the Christmas song"},
+    {"kind": "race", "why": "who-wins battles trending (2 Balls vs 2,000,000 Balls 77K in a day)"},
+    {"kind": "grow", "song": "Jingle Bells", "guess": true, "why": "guess the Christmas song; Jingle Bells is our best Short"},
+    {"kind": "multiply", "why": "every bounce multiplies"},
+    {"kind": "lines", "song": "We Wish You a Merry Christmas", "guess": true, "why": "guess the Christmas song"},
+    {"kind": "speed", "why": "every bounce 5% faster"}
+  ],
+  "done": []
+}

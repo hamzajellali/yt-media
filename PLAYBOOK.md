@@ -20,14 +20,30 @@ pip install --break-system-packages -q pycairo pymunk numpy
 Commit as: `git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit ...`
 Push with `git -c push.negotiate=true push origin <branch>`.
 
-## 1. Make the video
-Pick the simulation kind used least recently in `log.csv` (kinds: grow multiply escape lines race speed).
+## 1. Choose the video with vidIQ, then make it
+The user wants vidIQ (tools `mcp__vidIQ__*`, load with ToolSearch) to decide what to make while its free credits last.
+Read `VIDIQ.md` (research so far) and `vidiq_plan.json` (ordered queue) first.
+a. `vidiq_balance` (free). If totalCredits >= 5, do research before choosing, 5 credits per call, until credits are
+   used up or nothing useful is left to ask (never pay for credits, never upgrade the plan):
+   - `vidiq_user_channels` (free): if Gravity Candy (UC6jSQGEwcejJGjanTUUb-rw) is connected, first spend 5 on
+     `vidiq_channel_analytics` (channelId UC6jSQGEwcejJGjanTUUb-rw, report top_videos, filters creatorContentType==shorts,
+     metrics views,engagedViews,averageViewPercentage,subscribersGained) to see which of our Shorts work best.
+   - `vidiq_outliers` (contentType short) / `vidiq_trending_videos` (videoFormat short, sortBy recentVph) on our niche
+     or on the concept at the top of the queue; `vidiq_score_title` to compare 2 title options.
+   Write the findings (dated, with numbers as vidIQ returned them) into `VIDIQ.md` and reorder/extend the queue.
+b. Take the first entry of `vidiq_plan.json` `queue` (kind, optional song, optional guess). Move it to `done` with the
+   date and the video link after upload. If the queue is empty, pick the kind used least recently in `log.csv`.
+   Kinds: grow multiply escape lines race speed. `--song` / `--guess` only work with grow and lines
+   (songs: see MELODIES in the engine; Christmas songs: Jingle Bells, Deck the Halls, We Wish You a Merry Christmas).
+   After 25 December drop Christmas songs from the queue.
 Seed = YYYYMMDD as an integer (+1, +2... if that seed is already in log.csv).
 ```
 cd /home/claude/gc/engine
-python3 gc_engine.py short --seed SEED --kind KIND --out /tmp/v.mp4 --meta /tmp/v.json
+python3 gc_engine.py short --seed SEED --kind KIND [--song "SONG"] [--guess] --out /tmp/v.mp4 --meta /tmp/v.json
 python3 gc_engine.py long  --seed SEED --minutes 8.5 --out /tmp/v.mp4 --meta /tmp/v.json   # long videos
 ```
+`--guess` = guess-the-song mode: the screen says GUESS THE SONG, the title asks "Can You Guess the (Christmas) Song?",
+and the answer is revealed only at the end. Don't put the song name in the title or description of a guess video.
 QA before uploading: `ffprobe` duration > 8 s (short) or > 7 min (long); extract 3 frames
 (`ffmpeg -ss T -frames:v 1`) and look at them with Read: simulation visible, text readable, no stray lines.
 Check the audio is not silent (`ffmpeg -i /tmp/v.mp4 -af volumedetect -f null -`, mean_volume > -40 dB).
@@ -74,6 +90,7 @@ inp.dispatchEvent(new Event('change', {bubbles:true}));
 ## 4. Record and clean up
 - Empty gc-drop (git rm the files, commit, push).
 - Append a row to `log.csv` (date,type,kind,seed,title,link) on branch gravity-candy and push.
+- Move the used `vidiq_plan.json` queue entry to `done` (with date and link) and push it in the same commit.
 
 ## 5. Numbers and monetization watch (every run)
 Open https://studio.youtube.com/channel/UC6jSQGEwcejJGjanTUUb-rw/monetization/overview and the Analytics overview

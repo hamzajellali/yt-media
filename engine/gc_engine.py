@@ -29,6 +29,7 @@ MELODIES = {
     "We Wish You a Merry Christmas": "D5 G5 G5 A5 G5 F#5 E5 E5 E5 A5 A5 B5 A5 G5 F#5 D5 D5 B5 B5 C6 B5 A5 G5 E5 D5 D5 E5 A5 F#5 G5",
     "Old MacDonald": "G5 G5 G5 D5 E5 E5 D5 B5 B5 A5 A5 G5 D5 G5 G5 G5 D5 E5 E5 D5 B5 B5 A5 A5 G5",
 }
+CHRISTMAS = {"Jingle Bells", "Deck the Halls", "We Wish You a Merry Christmas"}
 SEMI = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
 
 
@@ -169,6 +170,17 @@ def burst(parts, x, y, rgb, n, rnd, speed=500):
 # ------------------------------------------------------------------ simulations
 # Each sim: __init__(rnd, W, H, cx, cy, R), step(dt) -> list of (pitch_hz, gain), draw(ctx, t),
 # done(t) -> bool, hook (title on screen), counter() -> (number, label), title_ideas
+def song_word(name):
+    return "Christmas Song" if name in CHRISTMAS else "Song"
+
+
+def reveal(sim):
+    """Guess-the-song mode: show the answer once the melody is finished."""
+    if getattr(sim, "guessing", False):
+        sim.hook = "DID YOU GET IT?"
+        sim.sub = f"it was {sim.song}!"
+
+
 class Sim:
     max_time = 55.0
     min_time = 12.0
@@ -205,6 +217,25 @@ class Grow(Sim):
         self.sub = f"...and it plays {self.song}"
         self.title = f"Every Bounce = Bigger Ball... and It Plays {self.song}"
 
+    def set_song(self, name):
+        self.song = name
+        self.notes = melody(name)
+        while len(self.notes) < 48:
+            self.notes = self.notes + melody(name)
+        self.grow = (self.R * 0.95 - self.b["r"]) / len(self.notes)
+        self.sub = f"...and it plays {self.song}"
+        self.title = f"Every Bounce = Bigger Ball... and It Plays {self.song}"
+
+    def guess_mode(self):
+        self.hook = "GUESS THE SONG"
+        self.sub = "every bounce plays one note"
+        w = song_word(self.song)
+        self.title = self.rnd.choice([
+            f"Every Bounce = Bigger Ball... Can You Guess the {w}?",
+            f"Can You Name the {w} Before the Ball Fills the Circle?",
+            f"Every Bounce Plays One Note... Name This {w}!",
+            f"Guess the {w} Before the Ball Gets Too Big"])
+
     def step(self, dt):
         b = self.b; ev = []
         if self.finished_at is not None:
@@ -218,6 +249,7 @@ class Grow(Sim):
             if self.n >= len(self.notes):
                 self.finished_at = self.t
                 ev.append(("chord", 1.0))
+                reveal(self)
         return ev
 
     def draw(self, ctx, t):
@@ -357,6 +389,22 @@ class Lines(Sim):
         self.title = f"Every Bounce Draws a Line ({self.song})"
         self.hue = self.rnd.random()
 
+    def set_song(self, name):
+        self.song = name
+        self.notes = melody(name)
+        self.target = max(50, len(self.notes))
+        self.sub = f"plays {self.song}"
+        self.title = f"Every Bounce Draws a Line ({self.song})"
+
+    def guess_mode(self):
+        self.hook = "GUESS THE SONG"
+        self.sub = "every bounce draws a line and plays a note"
+        w = song_word(self.song)
+        self.title = self.rnd.choice([
+            f"Every Bounce Draws a Line... Can You Guess the {w}?",
+            f"Can You Name the {w} Before the Last Line?",
+            f"Every Bounce Draws a Line and Plays a Note... Name This {w}!"])
+
     def step(self, dt):
         ev = []
         if self.finished_at is not None:
@@ -369,7 +417,7 @@ class Lines(Sim):
             self.pts.append((hit, len(self.pts)))
             ev.append((self.notes[(len(self.pts) - 1) % len(self.notes)], 0.9))
             if len(self.pts) >= self.target:
-                self.finished_at = self.t; ev.append(("chord", 1.0))
+                self.finished_at = self.t; ev.append(("chord", 1.0)); reveal(self)
         return ev
 
     def draw(self, ctx, t):
@@ -643,21 +691,33 @@ def fmt_ts(s):
 HASHTAGS = "#satisfying #physics #simulation #oddlysatisfying #asmr #relaxing"
 
 
-def make_short(seed, out, meta_path, kind=None):
+def make_short(seed, out, meta_path, kind=None, song=None, guess=False):
     rnd = random.Random(seed)
     kind = kind or rnd.choice(list(KINDS))
     W, H, fps = 1080, 1920, 60
     r = Renderer(W, H, fps, out, "/tmp/gc_audio.wav")
     sim = KINDS[kind](rnd, W, H, W / 2, 1000, 470)
+    if (song or guess) and not hasattr(sim, "set_song"):
+        sys.exit(f"--song/--guess only work with song kinds (grow, lines), not {kind}")
+    if song:
+        if song not in MELODIES:
+            sys.exit(f"unknown song {song!r}; choose from: {', '.join(MELODIES)}")
+        sim.set_song(song)
+    if guess:
+        sim.guessing = True
+        sim.guess_mode()
     sim.min_time = 10; sim.max_time = min(sim.max_time, 45)
     events = []
     dur, snap = run_sim(r, sim, 0, events, "short")
     write_wav("/tmp/gc_audio.wav", synth(events, r.frames / fps))
     r.finish()
-    title = (sim.title + " #satisfying #shorts")[:100]
-    desc = (f"{sim.title}. Turn the sound on! Every sound is a real collision from a physics simulation.\n\n"
+    tree = " \U0001F384" if getattr(sim, "song", None) in CHRISTMAS and guess else ""
+    title = (sim.title + tree + " #satisfying #shorts")[:100]
+    ask = " Comment your guess before the answer appears!" if guess else ""
+    desc = (f"{sim.title}{ask} Turn the sound on! Every sound is a real collision from a physics simulation.\n\n"
             f"Subscribe to Gravity Candy for a new satisfying simulation every day.\n\n{HASHTAGS} #shorts")
-    meta = dict(type="short", kind=kind, seed=seed, title=title, description=desc, duration=round(r.frames / fps, 1))
+    meta = dict(type="short", kind=kind, seed=seed, title=title, description=desc, duration=round(r.frames / fps, 1),
+                song=getattr(sim, "song", None), guess=bool(guess))
     json.dump(meta, open(meta_path, "w"), indent=2)
     return meta
 
@@ -743,8 +803,10 @@ if __name__ == "__main__":
     ap.add_argument("--meta", required=True)
     ap.add_argument("--kind", choices=list(KINDS))
     ap.add_argument("--minutes", type=float, default=8.0)
+    ap.add_argument("--song", choices=list(MELODIES), help="force the melody (grow, lines)")
+    ap.add_argument("--guess", action="store_true", help="guess-the-song mode: hide the song name, reveal it at the end")
     a = ap.parse_args()
     if a.mode == "short":
-        print(json.dumps(make_short(a.seed, a.out, a.meta, a.kind), indent=2))
+        print(json.dumps(make_short(a.seed, a.out, a.meta, a.kind, a.song, a.guess), indent=2))
     else:
         print(json.dumps(make_long(a.seed, a.out, a.meta, a.minutes), indent=2))
