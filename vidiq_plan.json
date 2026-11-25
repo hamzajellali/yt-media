@@ -1,17 +1,15 @@
 {
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "source": "vidIQ research 2026-11-24 (niche outliers + Gravity Candy's own Shorts via vidiq_channel_videos), see VIDIQ.md",
   "note": "Daily run takes the first entry of queue, renders it, then moves it to done with the date and video link. Song kinds only: grow, lines. guess=true adds --guess.",
   "queue": [
     {
-      "kind": "grow",
-      "song": "Deck the Halls",
-      "guess": true,
-      "why": "our best Short is grow + Christmas song (9.5K views, 190 VPH); guess-the-song outliers 410K-829K; title score 98 vs 91"
+      "kind": "speed",
+      "why": "XFSuuFAYvFE reached 1,312 views in ~16 h (82 VPH, 2nd best VPH after Jingle Bells); 5% faster outlier 4.1M"
     },
     {
       "kind": "race",
-      "why": "our 2nd fastest Short: 1.1K views in ~9 h (139 VPH); who-wins battles trending"
+      "why": "race stalled after the first day (1,112 -> 1,154 views overnight, 48 VPH lifetime); keep but lower priority"
     },
     {
       "kind": "multiply",
@@ -32,10 +30,6 @@
       "song": "Jingle Bells",
       "guess": true,
       "why": "lines was our slowest Short (58 VPH) with the song in the title; test guess-the-song framing instead"
-    },
-    {
-      "kind": "speed",
-      "why": "5% faster outlier 4.1M; check how XFSuuFAYvFE did before repeating"
     },
     {
       "kind": "grow",
@@ -62,5 +56,15 @@
       "why": "proven"
     }
   ],
-  "done": []
+  "done": [
+    {
+      "kind": "grow",
+      "song": "Deck the Halls",
+      "guess": true,
+      "why": "our best Short is grow + Christmas song (9.5K views, 190 VPH); guess-the-song outliers 410K-829K; title score 98 vs 91",
+      "date": "2026-11-25",
+      "seed": 20261127,
+      "link": "https://youtube.com/shorts/hCw5vhp8vaQ"
+    }
+  ]
 }

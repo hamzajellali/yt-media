@@ -62,3 +62,20 @@ connected. Free plan: 150 credits/month, renews 24 Dec. (The old account jellali
 Reading: grow + Christmas song is clearly our best format; race took off fastest after it; escape has the best like
 rate; lines with the song name in the title was the weakest. Queue reordered accordingly (grow-guess, race, multiply,
 grow-guess, escape, lines-guess, speed, ...).
+
+## 2026-11-25 (midday): own Shorts check (5 credits, balance 110 -> 105)
+
+`vidiq_channel_videos` Shorts at ~11:20 UTC 25 Nov:
+
+| Short | kind | views | likes | VPH (lifetime) |
+| --- | --- | --- | --- | --- |
+| hpKDHRWzvdo Every Bounce = Bigger Ball... Jingle Bells | grow + song | 10,352 | 51 | 157 |
+| __jbfrSxFFs Every Bounce Adds a Ball... 300? | multiply | 3,260 | 21 | 50 |
+| XFSuuFAYvFE Every Bounce Makes It 5% Faster | speed | 1,312 (in ~16 h) | 10 | 82 |
+| XxkVlSLgFVA Can One Ball Escape 10 Spinning Rings? | escape | 1,300 | 23 | 35 |
+| tZOVAkL261c Every Bounce Draws a Line (Merry Christmas) | lines + song | 1,175 | 4 | 32 |
+| DzAQHiiFgGs Which Color Escapes First? | race | 1,154 | 5 | 48 |
+
+Reading: speed started well (2nd best VPH); race stalled after its first day (+42 views overnight). Queue: speed moved
+to the front, race kept but behind it. Today's midday Short: grow + Deck the Halls in guess mode (hCw5vhp8vaQ).
+Credits: 105 left until 24 Dec for ~58 runs, so most runs should spend 0-5 credits.
