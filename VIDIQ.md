@@ -79,3 +79,9 @@ grow-guess, escape, lines-guess, speed, ...).
 Reading: speed started well (2nd best VPH); race stalled after its first day (+42 views overnight). Queue: speed moved
 to the front, race kept but behind it. Today's midday Short: grow + Deck the Halls in guess mode (hCw5vhp8vaQ).
 Credits: 105 left until 24 Dec for ~58 runs, so most runs should spend 0-5 credits.
+
+## 2026-11-25 (evening): no paid calls (balance 105)
+
+Midday research was ~6 h old, so this run spent 0 credits and took the queue head (speed, 20x goal, seed 20261130 →
+KhlvGJVNoGQ). Studio at ~18:00 UTC: "Watched at the moment" hpKDHRWzvdo 5.0k, XFSuuFAYvFE (speed 15x) 1.5k,
+XxkVlSLgFVA 1.3k; 48-hour views 11,794.

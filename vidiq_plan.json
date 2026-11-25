@@ -4,10 +4,6 @@
   "note": "Daily run takes the first entry of queue, renders it, then moves it to done with the date and video link. Song kinds only: grow, lines. guess=true adds --guess.",
   "queue": [
     {
-      "kind": "speed",
-      "why": "XFSuuFAYvFE reached 1,312 views in ~16 h (82 VPH, 2nd best VPH after Jingle Bells); 5% faster outlier 4.1M"
-    },
-    {
       "kind": "race",
       "why": "race stalled after the first day (1,112 -> 1,154 views overnight, 48 VPH lifetime); keep but lower priority"
     },
@@ -65,6 +61,13 @@
       "date": "2026-11-25",
       "seed": 20261127,
       "link": "https://youtube.com/shorts/hCw5vhp8vaQ"
+    },
+    {
+      "kind": "speed",
+      "why": "XFSuuFAYvFE reached 1,312 views in ~16 h (82 VPH, 2nd best VPH after Jingle Bells); 5% faster outlier 4.1M",
+      "date": "2026-11-25",
+      "seed": 20261130,
+      "link": "https://youtube.com/shorts/KhlvGJVNoGQ"
     }
   ]
 }
